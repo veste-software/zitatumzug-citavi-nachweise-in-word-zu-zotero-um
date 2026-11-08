@@ -51,6 +51,12 @@ Matches `DESIGN.md`: Zilla Slab and Source Serif 4 self-hosted, kraft/manila/ink
 
 See the `humanTasks` field in the final message.
 
+## Round 2
+
+Verdict: **pass**. The round 1 blocker is fixed in `src/core/convert.ts` (`chunks()` no longer ends a chunk on a high surrogate). `tests/qa.test.ts` "non-BMP characters survive…" is now green.
+
+Re-run: `npm test` 72/72 green, `npm run build` and `npm run build:preview` OK (8 pages), `design-check` nothing found, `npm audit --omit=dev` 0 vulnerabilities. Preview build: sitemap entries and the robots sitemap line start with `/preview/`, and no internal href/src is root-relative. The round 1 warnings still stand (verify.ts re-mints tokens, no noscript line, placeholder legal data, SITE_URL default).
+
 ## Round 1: blockers
 
 - (medium) chunks() splits the ADDIN ZOTERO_ITEM instruction every 250 UTF-16 code units and can cut a surrogate pair in two. Each half is written as a lone surrogate and becomes U+FFFD, so titles or other data in the field are silently corrupted. Fix: never end a chunk on a high surrogate (move the boundary back by one) or split by code points. tests/qa.test.ts 'non-BMP characters survive…' reproduces it and must pass. [src/core/convert.ts:30 (chunks), reproduced by tests/qa.test.ts]
