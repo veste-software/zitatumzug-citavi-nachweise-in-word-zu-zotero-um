@@ -1,6 +1,6 @@
 # Zitatumzug: Citavi-Nachweise in Word zu Zotero umwandeln
 
-**Stage:** building · **Platform:** web · **Score:** 3.6/5 · **Spend:** $5.91
+**Stage:** building · **Platform:** web · **Score:** 3.6/5 · **Spend:** $6.37
 
 For students and researchers in Germany, Austria and Switzerland whose university is ending its Citavi licence. Upload a Word file and the browser turns its Citavi citations into live Zotero citations, entirely on the user's device. Nobody has to re-insert hundreds of citations by hand, and it still works after the licence has expired.
 
