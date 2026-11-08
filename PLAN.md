@@ -64,4 +64,4 @@ Ordered. Each task is one focused session and names how to verify it. Read `SPEC
 
 ## QA round 1
 
-- [ ] [QA round 1] chunks() splits the ADDIN ZOTERO_ITEM instruction every 250 UTF-16 code units and can cut a surrogate pair in two. Each half is written as a lone surrogate and becomes U+FFFD, so titles or other data… (src/core/convert.ts:30 (chunks), reproduced by tests/qa.test.ts)
+- [x] [QA round 1] chunks() splits the ADDIN ZOTERO_ITEM instruction every 250 UTF-16 code units and can cut a surrogate pair in two. Each half is written as a lone surrogate and becomes U+FFFD, so titles or other data… (src/core/convert.ts:30 (chunks), reproduced by tests/qa.test.ts)

@@ -29,7 +29,15 @@ function randomId(): string {
 
 function chunks(s: string, n = 250): string[] {
   const out: string[] = [];
-  for (let i = 0; i < s.length; i += n) out.push(s.slice(i, i + n));
+  let i = 0;
+  while (i < s.length) {
+    let end = Math.min(i + n, s.length);
+    const last = s.charCodeAt(end - 1);
+    // never cut a surrogate pair in two
+    if (end < s.length && last >= 0xd800 && last <= 0xdbff) end--;
+    out.push(s.slice(i, end));
+    i = end;
+  }
   return out;
 }
 
