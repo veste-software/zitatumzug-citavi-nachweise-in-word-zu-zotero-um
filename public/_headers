@@ -1,7 +1,7 @@
 # Cloudflare Pages headers (production). GitHub Pages previews ignore this file.
 # connect-src is the privacy promise: the page may only talk to itself, api.zotero.org
 # (opt-in linking) and the cookie-free Cloudflare Web Analytics endpoint.
-# TODO(Builder, PLAN task "CSP hashes"): replace 'unsafe-inline' in script-src with the sha256 hashes of Astro's inline island scripts.
+# scripts/csp-hashes.mjs swaps the inline allowance for sha256 hashes of inline scripts in dist/_headers after the build.
 /*
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://api.zotero.org https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
   Referrer-Policy: strict-origin-when-cross-origin

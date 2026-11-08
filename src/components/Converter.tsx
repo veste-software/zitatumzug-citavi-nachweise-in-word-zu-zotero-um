@@ -7,7 +7,10 @@ import { track } from '../lib/track';
 
 const VERIFY_KEY: string | undefined = import.meta.env.PUBLIC_UNLOCK_VERIFY_KEY || undefined;
 
-type Props = { mode?: 'convert' | 'export' };
+/** Hidden until the human CORS check against api.zotero.org passes. */
+const LINKING = import.meta.env.PUBLIC_ENABLE_LINKING === 'true';
+
+type Props ={ mode?: 'convert' | 'export' };
 
 interface Loaded {
   name: string;
@@ -59,6 +62,9 @@ export default function Converter({ mode = 'convert' }: Props) {
   const [consent, setConsent] = useState(false);
   const [payNote, setPayNote] = useState('');
   const [pasted, setPasted] = useState('');
+  const [zkey, setZkey] = useState('');
+  const [linkNote, setLinkNote] = useState('');
+  const [uriMap, setUriMap] = useState<Record<string, string[]> | undefined>(undefined);
 
   async function acceptPass(token: string): Promise<boolean> {
     const g = await gateFor(token, VERIFY_KEY);
@@ -115,6 +121,21 @@ export default function Converter({ mode = 'convert' }: Props) {
     else setPayNote('Pass übernommen.');
   }
 
+  async function linkNow() {
+    if (!state) return;
+    setLinkNote('Bibliothek wird abgeglichen …');
+    try {
+      const [{ uniqueItems }, { linkLibrary }] = await Promise.all([import('../core/export'), import('../lib/zotero')]);
+      const items = uniqueItems(state.scan.citations.filter((x) => x.readable).map((x) => x.entries));
+      const map = await linkLibrary(items, zkey.trim());
+      setUriMap(map);
+      setZkey('');
+      setLinkNote(`${Object.keys(map).length} von ${items.length} Quellen eindeutig verknüpft.`);
+    } catch {
+      setLinkNote('Der Abgleich ist nicht gelungen. Prüfen Sie den Schlüssel; die Umwandlung geht auch ohne Verknüpfung.');
+    }
+  }
+
   async function fullCopy() {
     if (!state || !pass) return;
     if (!VERIFY_KEY || !(await verifyToken(pass, VERIFY_KEY))) {
@@ -122,7 +143,7 @@ export default function Converter({ mode = 'convert' }: Props) {
       return setPayNote('Ihr Pass ist abgelaufen oder ungültig.');
     }
     const { convertDocx } = await import('../core/convert');
-    const r = convertDocx(state.bytes, domXml, { mode: 'full', unlock: true, standardPrefix: prefix.trim() || undefined });
+    const r = convertDocx(state.bytes, domXml, { mode: 'full', unlock: true, standardPrefix: prefix.trim() || undefined, uriMap });
     if (!r.ok) return setError(ERRORS[r.error] ?? 'Umwandlung nicht möglich.');
     track('full_download');
     download(
@@ -265,6 +286,21 @@ export default function Converter({ mode = 'convert' }: Props) {
                 {gate === 'full' ? (
                   <>
                     <p class="label">Umzugspass aktiv</p>
+                    {LINKING && (
+                      <details>
+                        <summary>Mit meiner Zotero-Bibliothek verknüpfen (optional)</summary>
+                        <p>
+                          Der Schlüssel (nur Leserechte) geht ausschließlich an api.zotero.org und wird weder gespeichert noch
+                          an uns gesendet. Es werden nur eindeutige Treffer verknüpft.
+                        </p>
+                        <label class="field">
+                          <span class="label">Zotero-API-Schlüssel</span>
+                          <input type="password" autocomplete="off" value={zkey} onInput={(e) => setZkey((e.target as HTMLInputElement).value)} />
+                        </label>
+                        <button type="button" class="button" onClick={linkNow} disabled={!zkey.trim()}>Bibliothek abgleichen</button>
+                        {linkNote && <p aria-live="polite">{linkNote}</p>}
+                      </details>
+                    )}
                     <button type="button" class="button button--primary" onClick={fullCopy} disabled={c.readable === 0}>
                       Alle {c.readable} Nachweise umwandeln
                     </button>

@@ -1,0 +1,5 @@
+[
+  { "key": "CCCC3333", "data": { "title": "SYNTHETIC: Doppelt vorhanden", "date": "2018", "creators": [{ "creatorType": "author", "lastName": "Dupont" }] } },
+  { "key": "DDDD4444", "data": { "title": "SYNTHETIC: Doppelt vorhanden", "date": "2018", "creators": [{ "creatorType": "author", "lastName": "Dupont" }] } },
+  { "key": "EEEE5555", "data": { "title": "SYNTHETIC: Nur Titel", "date": "2017", "creators": [{ "creatorType": "author", "lastName": "Köhler" }] } }
+]

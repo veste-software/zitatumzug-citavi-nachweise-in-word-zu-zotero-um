@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Citavi-Nachweise in Word-Dokumenten im Browser zu Zotero-Feldern umwandeln.",
   "scripts": {
-    "build": "astro build",
-    "build:preview": "SITE_URL=https://example.github.io SITE_BASE=/preview astro build",
+    "build": "astro build && node scripts/csp-hashes.mjs",
+    "build:preview": "SITE_URL=https://example.github.io SITE_BASE=/preview astro build && node scripts/csp-hashes.mjs",
     "test": "vitest run",
     "lint": "astro check",
     "design-check": "node scripts/design-check.mjs",

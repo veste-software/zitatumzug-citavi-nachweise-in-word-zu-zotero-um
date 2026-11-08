@@ -1,0 +1,4 @@
+[
+  { "key": "AAAA1111", "data": { "title": "SYNTHETIC: Ein Testbuch", "date": "2019", "ISBN": "978-3-16-148410-0", "creators": [{ "creatorType": "author", "lastName": "Muster", "firstName": "Eva" }] } },
+  { "key": "BBBB2222", "data": { "title": "SYNTHETIC: Ein Aufsatz", "date": "2020-05-01", "DOI": "10.1000/XYZ123", "creators": [{ "creatorType": "author", "lastName": "Beispiel", "firstName": "Jan" }] } }
+]

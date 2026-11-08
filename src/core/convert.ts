@@ -13,6 +13,8 @@ export interface ConvertOptions {
   standardPrefix?: string;
   /** Full mode needs the caller to prove it holds a valid unlock (see src/lib/token.ts). */
   unlock?: boolean;
+  /** Optional: CSL item id → Zotero item URIs (from the opt-in library linking). */
+  uriMap?: Record<string, string[]>;
 }
 
 export type ConvertResult =
@@ -105,7 +107,12 @@ export function convertDocx(bytes: Uint8Array, xml: XmlAdapter, opts: ConvertOpt
     const json = {
       citationID: randomId() + randomId().slice(0, 2),
       properties: { noteIndex: c.noteIndex },
-      citationItems: c.entries.map((e) => mapEntry(e, { standardPrefix: opts.standardPrefix })),
+      citationItems: c.entries.map((e) => {
+        const item = mapEntry(e, { standardPrefix: opts.standardPrefix });
+        const uris = opts.uriMap?.[item.id];
+        if (uris?.length) item.uris = uris;
+        return item;
+      }),
       schema: SCHEMA,
     };
     const instruction = `ADDIN ZOTERO_ITEM CSL_CITATION ${JSON.stringify(json)}`;
