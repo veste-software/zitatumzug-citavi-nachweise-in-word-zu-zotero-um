@@ -1,6 +1,6 @@
 # Zitatumzug: Citavi-Nachweise in Word zu Zotero umwandeln
 
-**Stage:** qa · **Platform:** web · **Score:** 3.6/5 · **Spend:** $6.98
+**Stage:** building · **Platform:** web · **Score:** 3.6/5 · **Spend:** $7.71
 
 For students and researchers in Germany, Austria and Switzerland whose university is ending its Citavi licence. Upload a Word file and the browser turns its Citavi citations into live Zotero citations, entirely on the user's device. Nobody has to re-insert hundreds of citations by hand, and it still works after the licence has expired.
 
@@ -30,6 +30,14 @@ For students and researchers in Germany, Austria and Switzerland whose universit
 - [ ] [task 20] Set SITE_URL to the production domain and PUBLIC_CF_BEACON_TOKEN for cookie-free Cloudflare Web Analytics
 - [ ] [task 21] Have a lawyer review the legal pages (Impressum, Datenschutz, Kaufbedingungen/Widerruf)
 - [ ] [task 22] After the real Word+Zotero round trip passes, decide on outreach to university libraries and post in the Zotero forum with authorship disclosed
+- [ ] [task 23] Put at least 3 real Citavi 6/7 Word documents (author-year, footnote style with Vgl., numeric) into fixtures/real/ and run npm test
+- [ ] [task 24] Open 3 or more converted outputs in Word with Zotero 7, set a style, click Refresh and confirm citations, page numbers, footnotes and bibliography before going live
+- [ ] [task 25] Fill in the Impressum, Datenschutz controller and Widerruf address, and have a lawyer review the legal pages (Impressum, Datenschutz, Kaufbedingungen/Widerruf)
+- [ ] [task 26] Decide VAT handling (Kleinunternehmer or OSS) and adjust the 'inkl. MwSt.' wording and the Impressum accordingly
+- [ ] [task 27] Register the domain (e.g. zitatumzug.de), check the name Zitatumzug at DPMA/EUIPO, connect Cloudflare Pages and set SITE_URL
+- [ ] [task 28] Create a Stripe account in test mode, create the 9 € price, and set STRIPE_SECRET_KEY, STRIPE_PRICE_ID, UNLOCK_SIGNING_KEY and PUBLIC_UNLOCK_VERIFY_KEY (generate the key pair with scripts/gen-keys.mjs)
+- [ ] [task 29] Create the Cloudflare Web Analytics token (PUBLIC_CF_BEACON_TOKEN) and the events binding (EVENTS_BINDING) if counters are wanted
+- [ ] [task 30] Verify CORS from the real domain to api.zotero.org, then set PUBLIC_ENABLE_LINKING=true if it works
 
 ## Recommendation
 
@@ -85,3 +93,4 @@ one-off paid pass (freemium: free scan, test copy and reference export; paid ful
 - 2026-11-08 21:03 · building · build started
 - 2026-11-08 21:25 · seo · all planned tasks done
 - 2026-11-08 21:31 · qa · seo and conversion foundations written
+- 2026-11-08 21:39 · building · QA round 1 found 1 blocker(s)
