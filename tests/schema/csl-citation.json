@@ -1,0 +1,26 @@
+{
+  "$comment": "Hand-written structural subset of the CSL citation schema, source: https://github.com/citation-style-language/schema/raw/master/csl-citation.json (not fetched; written from the known structure).",
+  "type": "object",
+  "required": ["citationID", "properties", "citationItems", "schema"],
+  "properties": {
+    "citationID": { "type": "string" },
+    "properties": { "type": "object", "required": ["noteIndex"], "properties": { "noteIndex": { "type": "number" } } },
+    "schema": { "type": "string", "const": "https://github.com/citation-style-language/schema/raw/master/csl-citation.json" },
+    "citationItems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": ["string", "number"] },
+          "itemData": { "type": "object", "required": ["type"] },
+          "locator": { "type": "string" },
+          "label": { "type": "string" },
+          "prefix": { "type": "string" },
+          "suffix": { "type": "string" },
+          "uris": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}
