@@ -61,3 +61,7 @@ Ordered. Each task is one focused session and names how to verify it. Read `SPEC
 - convertDocx full mode takes an explicit unlock flag; src/lib/token.ts must set it only after verifyToken passes.
 - Test copy converts the first 10 readable citations (unreadable ones do not count toward the 10).
 - Test fixtures are SYNTHETIC; PageRange shapes (string and {OriginalString}) are guesses until real fixtures exist.
+
+## QA round 1
+
+- [ ] [QA round 1] chunks() splits the ADDIN ZOTERO_ITEM instruction every 250 UTF-16 code units and can cut a surrogate pair in two. Each half is written as a lone surrogate and becomes U+FFFD, so titles or other data… (src/core/convert.ts:30 (chunks), reproduced by tests/qa.test.ts)
