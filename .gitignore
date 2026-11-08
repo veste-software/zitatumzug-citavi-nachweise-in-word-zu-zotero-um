@@ -16,3 +16,7 @@ coverage/
 # Real search data the studio drops in for the Growth role; never published
 growth/data/
 .DS_Store
+# Real Citavi documents provided by the owner (private theses) – never committed
+fixtures/real/
+# Cloudflare local state
+.wrangler/

@@ -1,0 +1,21 @@
+---
+// The signature hang tag (see DESIGN.md). Static version for Astro pages;
+// the interactive result tag in the tool island reuses the same CSS classes.
+interface Props {
+  label: string;
+  big: string;
+  detail?: string;
+  variant?: 'kraft' | 'manila';
+}
+const { label, big, detail, variant = 'kraft' } = Astro.props;
+---
+<div class:list={['tag', { 'tag--manila': variant === 'manila' }]}>
+  <svg class="tag__string" viewBox="0 0 40 200" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M30 100 C 12 92, 4 70, 10 40 S 22 8, 6 0" fill="none" stroke="#221f1c" stroke-width="1.5" stroke-linecap="round" />
+  </svg>
+  <span class="tag__hole" aria-hidden="true"></span>
+  <span class="label">{label}</span>
+  <span class="tag__big">{big}</span>
+  {detail && <span class="tag__detail">{detail}</span>}
+  <slot />
+</div>

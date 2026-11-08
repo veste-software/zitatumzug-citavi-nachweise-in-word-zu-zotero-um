@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Tag from '../components/Tag.astro';
+import { href } from '../lib/url';
+---
+<Base title="Seite nicht gefunden – Zitatumzug" description="Diese Seite gibt es nicht." index={false}>
+  <div class="main-col">
+    <h1>Diese Seite ist beim Umzug verloren gegangen</h1>
+    <p>Im Inventar steht sie nicht. Vielleicht hilft der Weg zurück zum Werkzeug.</p>
+    <p><a class="button" href={href('/')}>Zur Startseite</a></p>
+  </div>
+  <aside class="margin-col">
+    <Tag label="Fehlt" big="404" detail="Karton nicht auffindbar" />
+  </aside>
+</Base>

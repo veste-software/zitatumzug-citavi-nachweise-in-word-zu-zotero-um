@@ -1,0 +1,34 @@
+{
+  "name": "zitatumzug",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Citavi-Nachweise in Word-Dokumenten im Browser zu Zotero-Feldern umwandeln.",
+  "scripts": {
+    "build": "astro build",
+    "build:preview": "SITE_URL=https://example.github.io SITE_BASE=/preview astro build",
+    "test": "vitest run",
+    "lint": "astro check",
+    "design-check": "node scripts/design-check.mjs",
+    "size": "node scripts/js-size.mjs",
+    "fixtures": "node scripts/make-fixtures.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/source-serif-4": "^5.2.5",
+    "@fontsource/zilla-slab": "^5.2.5",
+    "fflate": "^0.8.2",
+    "preact": "^10.26.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/preact": "^4.1.0",
+    "@astrojs/sitemap": "^3.4.0",
+    "@xmldom/xmldom": "^0.8.10",
+    "astro": "^5.10.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

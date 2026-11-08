@@ -1,0 +1,387 @@
+/* Zitatumzug – design tokens and base layout. See DESIGN.md. All colours, fonts and spacing live here. */
+@import '@fontsource/zilla-slab/500.css';
+@import '@fontsource/zilla-slab/700.css';
+@import '@fontsource-variable/source-serif-4/opsz.css';
+@import '@fontsource-variable/source-serif-4/opsz-italic.css';
+
+:root {
+  /* colours */
+  --kraft: #c8a97e;
+  --manila: #f4ead5;
+  --ink: #221f1c;
+  --stamp-red: #a8231b;
+  --ruling: #6f8ba3;
+
+  /* type */
+  --font-display: 'Zilla Slab', 'Rockwell', serif;
+  --font-text: 'Source Serif 4 Variable', 'Georgia', serif;
+  --font-code: ui-monospace, 'SFMono-Regular', 'Consolas', monospace;
+  --step--1: 0.84rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.33rem;
+  --step-2: 1.78rem;
+  --step-3: clamp(2rem, 1.4rem + 2.6vw, 2.6rem);
+  --step-tag: clamp(3.5rem, 12vw, 6.5rem);
+  --measure: 62ch;
+
+  /* space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --space-7: 6.5rem;
+
+  --rule: 2px solid var(--ink);
+  --hairline: 1px solid var(--ruling);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--kraft);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-size: var(--step-0);
+  line-height: 1.55;
+  font-optical-sizing: auto;
+}
+
+::selection {
+  background: var(--stamp-red);
+  color: var(--manila);
+}
+
+:focus-visible {
+  outline: 3px solid var(--stamp-red);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 var(--space-3);
+}
+h1 { font-size: var(--step-3); }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); font-weight: 500; }
+
+p,
+ul,
+ol {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-3);
+}
+
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  color: var(--stamp-red);
+  text-decoration-thickness: 2px;
+}
+
+code,
+kbd {
+  font-family: var(--font-code);
+  font-size: 0.9em;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* ---- page frame: kraft page, manila sheet ---- */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--manila);
+  padding: var(--space-2) var(--space-3);
+}
+.skip-link:focus {
+  left: var(--space-3);
+}
+
+.site-header {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step-1);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-size: var(--step--1);
+}
+
+.sheet {
+  max-width: 72rem;
+  margin: 0 auto;
+  background: var(--manila);
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+  padding: var(--space-5) var(--space-4) var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--space-4);
+}
+.sheet > * {
+  grid-column: 1 / -1;
+}
+.sheet > .main-col {
+  grid-column: 1 / 9;
+}
+.sheet > .margin-col {
+  grid-column: 9 / 13;
+}
+@media (max-width: 760px) {
+  .sheet {
+    padding: var(--space-4) var(--space-3) var(--space-5);
+  }
+  .sheet > .main-col,
+  .sheet > .margin-col {
+    grid-column: 1 / -1;
+  }
+}
+
+.section {
+  border-top: var(--rule);
+  padding-top: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.site-footer {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-4);
+  font-size: var(--step--1);
+}
+.site-footer p {
+  max-width: none;
+}
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+/* ---- buttons, inputs, notices ---- */
+.button {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step-0);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.7em 1.2em;
+  border: var(--rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.button:hover {
+  background: var(--ink);
+  color: var(--manila);
+}
+.button:active {
+  box-shadow: inset 2px 2px 0 var(--ink);
+}
+.button--primary {
+  background: var(--stamp-red);
+  color: var(--manila);
+  border-color: var(--ink);
+}
+.button--primary:hover {
+  background: #861a14;
+  color: var(--manila);
+}
+.button[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.field {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+.field > span {
+  display: block;
+}
+.field input {
+  font: inherit;
+  width: 100%;
+  max-width: 28rem;
+  background: transparent;
+  border: 0;
+  border-bottom: var(--rule);
+  border-radius: 0;
+  padding: var(--space-2) 0;
+  color: var(--ink);
+}
+
+.notice {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: var(--space-3) 0;
+  margin: var(--space-4) 0;
+}
+.notice .label {
+  margin-right: var(--space-2);
+}
+.notice--error .label {
+  color: var(--stamp-red);
+}
+
+/* ---- ledger table ---- */
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: var(--step-0);
+  background-image: none;
+}
+.ledger th {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  border-bottom: 4px double var(--ink);
+  padding: var(--space-2) var(--space-2);
+}
+.ledger td {
+  border-bottom: var(--hairline);
+  padding: var(--space-2) var(--space-2);
+  vertical-align: top;
+}
+.ledger .ledger-nr {
+  font-family: var(--font-display);
+  width: 3.5rem;
+  border-right: 1px solid var(--stamp-red);
+}
+
+/* ---- signature: the hang tag and the stamp ---- */
+.tag {
+  position: relative;
+  background: var(--kraft);
+  color: var(--ink);
+  padding: var(--space-4) var(--space-4) var(--space-4) 4.5rem;
+  clip-path: polygon(2.25rem 0, 100% 0, 100% 100%, 2.25rem 100%, 0 calc(100% - 2.25rem), 0 2.25rem);
+  min-height: 11rem;
+  max-width: 26rem;
+}
+.tag--manila {
+  background: #ead9b4;
+}
+.tag__hole {
+  position: absolute;
+  left: 1.6rem;
+  top: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: -0.625rem;
+  border-radius: 50%;
+  background: var(--manila);
+  box-shadow: 0 0 0 3px var(--ruling);
+}
+.tag__string {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.4rem;
+  height: 100%;
+  pointer-events: none;
+}
+.tag__big {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step-tag);
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.tag__detail {
+  display: block;
+  border-top: 1px solid var(--ink);
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  font-size: var(--step--1);
+}
+
+.stamp {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stamp-red);
+  border: 2px solid var(--stamp-red);
+  padding: 0.15em 0.5em;
+  transform: rotate(-2deg);
+  opacity: 0.92;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tag--swing {
+    transform-origin: 2rem 50%;
+    animation: tag-swing 380ms ease-out 1;
+  }
+}
+@keyframes tag-swing {
+  from { transform: rotate(-4deg); }
+  to { transform: rotate(0); }
+}
+
+/* ---- print: the ledger without the kraft page ---- */
+@media print {
+  html,
+  .sheet {
+    background: #fff;
+  }
+  .site-nav,
+  .button,
+  .skip-link {
+    display: none;
+  }
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <path d="M9 2 H30 V30 H9 L2 23 V9 Z" fill="#c8a97e" stroke="#221f1c" stroke-width="2"/>
+  <circle cx="8" cy="16" r="2.6" fill="#f4ead5" stroke="#6f8ba3" stroke-width="1.5"/>
+  <text x="20" y="22" font-family="Rockwell, Georgia, serif" font-weight="700" font-size="15" text-anchor="middle" fill="#a8231b">Z</text>
+</svg>
