@@ -1,0 +1,75 @@
+{
+  "title": "Zitatumzug: Citavi-Nachweise in Word zu Zotero umwandeln",
+  "pitch": "For students and researchers in Germany, Austria and Switzerland whose university is ending its Citavi licence. Upload a Word file and the browser turns its Citavi citations into live Zotero citations, entirely on the user's device. Nobody has to re-insert hundreds of citations by hand, and it still works after the licence has expired.",
+  "platform": "web",
+  "language": "de",
+  "targetQueries": [
+    "citavi zotero word",
+    "citavi zitate in zotero umwandeln",
+    "citavi felder zotero",
+    "citavi word dokument zotero übernehmen",
+    "citavi lizenz abgelaufen word dokument",
+    "citavi nachweise in zotero konvertieren",
+    "citavi to zotero word citations"
+  ],
+  "evidence": [
+    {
+      "url": "https://www.uni-muenster.de/ZBSoz/bibliothek/aktuell/nachricht/3269",
+      "note": "Uni Münster reminder: campus licence ends 31.12.2026 and will not be renewed because costs rose sharply. Projects become inaccessible; check the transfer to Zotero before the licence ends.",
+      "date": "2026-10-26"
+    },
+    {
+      "url": "https://thesisdraft.com/de/blog/citavi-word-zitate-retten/",
+      "note": "Article on rescuing Citavi citations in Word: a Citavi citation is a field function that nobody can resolve without Citavi. 'Wir haben dafür kein Werkzeug' (we have no tool for this); the advice is to re-cite manually with the Zotero plugin.",
+      "date": "2026-08-16"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/benedikt-e/literaturverwaltungsmigration/main/README.md",
+      "note": "Windows workaround repo for moving a Citavi library to Zotero (created 2026-09-19, last push 2026-10-01). Its author says citations set with the Citavi Word add-in cannot be converted and must be re-set by hand.",
+      "date": "2026-09-19"
+    },
+    {
+      "url": "https://sub.uni-goettingen.de/en/studying/courses/switching-from-citavi-to-zotero",
+      "note": "SUB Göttingen guide: licence ends 30.11.2026; 'Citavi citations can't be automatically linked to Zotero'; students with many references must reset all citations or buy a private licence. The page is undated; date given is when I read it.",
+      "date": "2026-11-08"
+    },
+    {
+      "url": "https://tu-freiberg.de/en/news/citavi-campus-licence-laeuft-aus",
+      "note": "TU Freiberg: final one-year extension; from 1 December 2026 Citavi projects can no longer be accessed without further steps. Options are a Zotero import or a private licence.",
+      "date": "2025-11-18"
+    }
+  ],
+  "competitors": [
+    {
+      "name": "CiteMigrate",
+      "url": "https://github.com/iandus/CiteMigrate",
+      "verdict": "partial",
+      "gap": "Python/PyQt desktop app installed with git clone and pip, 'only tested under macOS', needs a Zotero Web API key and the library already in Zotero. Created 2026-02-23, last push 2026-02-25, 1 star. Out of reach for most Windows students."
+    },
+    {
+      "name": "literaturverwaltungsmigration (benedikt-e)",
+      "url": "https://github.com/benedikt-e/literaturverwaltungsmigration",
+      "verdict": "partial",
+      "gap": "Moves the Citavi library and knowledge items through a Citavi macro on Windows. Says outright that it does not convert Word citations."
+    },
+    {
+      "name": "Zotero's built-in Citavi project import",
+      "url": "https://sub.uni-goettingen.de/en/studying/courses/switching-from-citavi-to-zotero",
+      "verdict": "partial",
+      "gap": "Imports the library but not citations already placed in Word documents. Knowledge element types and links are lost."
+    }
+  ],
+  "trigger": {
+    "what": "German universities ending their Citavi campus licences after price rises, announced from late 2025: FH Dortmund 2026-08-31, Göttingen 2026-11-30, TU Freiberg 2026-12-01, Münster and HCU Hamburg 2026-12-31. Münster sent a reminder on 2026-10-26.",
+    "date": "2026-10-26",
+    "url": "https://www.uni-muenster.de/ZBSoz/bibliothek/aktuell/nachricht/3269"
+  },
+  "window": "Most deadlines fall between 30 November and 31 December 2026. After that, students are left with theses whose Citavi fields can no longer be refreshed. Demand should run through 2027 as theses started in Citavi are finished and more universities drop the licence (Münster cites sharply higher costs; RWTH extended only to 2027-02-01). The gap has stayed open for years: Zotero converts Mendeley citations but not Citavi ones, library guides say it is impossible, and the only tool is an obscure Python desktop app.",
+  "monetizationIdea": "The scan is free and shows how many Citavi citations were found and matched, then converts the first 10 so the user can check them. Converting the whole document is a one-off fee of about 9 to 15 EUR through Stripe in test mode. A flat institution licence would let a library hand its students a cod…",
+  "risks": [
+    "Test files: the builder needs real .docx files made with Citavi (author-year, numeric and footnote styles). A synthetic fixture is not enough; an earlier product stalled for exactly this reason.",
+    "Whether the Zotero Web API accepts calls from a browser page (CORS) is not verified. The fallback is a library export file or embedded item data.",
+    "Trademarks: Citavi and Zotero may only be named descriptively, with no logos and a clear note that the tool is not affiliated with either.",
+    "Short peak: much of the demand falls in the weeks around the licence deadlines, so a late launch misses the peak."
+  ]
+}

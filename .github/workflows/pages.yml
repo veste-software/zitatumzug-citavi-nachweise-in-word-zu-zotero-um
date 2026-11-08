@@ -1,0 +1,57 @@
+name: Deploy preview to GitHub Pages
+
+# A preview of the main branch. A project site lives under /<repo>/, so builds get SITE_BASE
+# and SITE_URL; the framework config must read them (see CLAUDE.md). The real, ranking site
+# belongs on a custom domain, not on github.io.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Is there something to build?
+        id: detect
+        run: |
+          if [ -f package.json ] && grep -q '"build"' package.json; then echo "build=true" >> "$GITHUB_OUTPUT"; fi
+
+      - uses: actions/setup-node@v4
+        if: steps.detect.outputs.build == 'true'
+        with:
+          node-version: 22
+
+      - name: Build
+        if: steps.detect.outputs.build == 'true'
+        run: |
+          export SITE_URL="https://$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]').github.io"
+          export SITE_BASE="/${GITHUB_REPOSITORY#*/}"
+          npm ci
+          npm run build
+          for dir in dist build out public; do
+            if [ -f "$dir/index.html" ]; then cp -r "$dir" _site; break; fi
+          done
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.detect.outputs.build == 'true' && hashFiles('_site/index.html') != ''
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
+        if: steps.detect.outputs.build == 'true' && hashFiles('_site/index.html') != ''

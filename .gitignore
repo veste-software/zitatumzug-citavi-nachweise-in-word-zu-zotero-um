@@ -1,0 +1,18 @@
+node_modules/
+dist/
+build/
+.next/
+.astro/
+.output/
+coverage/
+.env
+.env.*
+!.env.example
+# Claude Code settings and servers run on the next start with `claude -p` (no trust prompt),
+# so an agent must not be able to leave them behind in a repo
+.claude/
+.mcp.json
+*.log
+# Real search data the studio drops in for the Growth role; never published
+growth/data/
+.DS_Store
