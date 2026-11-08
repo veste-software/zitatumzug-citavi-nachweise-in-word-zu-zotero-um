@@ -1,6 +1,6 @@
 # Zitatumzug: Citavi-Nachweise in Word zu Zotero umwandeln
 
-**Stage:** seo · **Platform:** web · **Score:** 3.6/5 · **Spend:** $6.78
+**Stage:** qa · **Platform:** web · **Score:** 3.6/5 · **Spend:** $6.98
 
 For students and researchers in Germany, Austria and Switzerland whose university is ending its Citavi licence. Upload a Word file and the browser turns its Citavi citations into live Zotero citations, entirely on the user's device. Nobody has to re-insert hundreds of citations by hand, and it still works after the licence has expired.
 
@@ -24,6 +24,12 @@ For students and researchers in Germany, Austria and Switzerland whose universit
 - [ ] [task 14] Generate an Ed25519 key pair with scripts/gen-keys.mjs once the Builder adds it; set UNLOCK_SIGNING_KEY and PUBLIC_UNLOCK_VERIFY_KEY
 - [ ] [task 15] Create a Cloudflare Web Analytics site and set PUBLIC_CF_BEACON_TOKEN; bind an Analytics Engine dataset or KV for the event counter
 - [ ] [task 16] Fill in the operator data in Impressum and have a lawyer review the legal pages (Impressum, Datenschutz, Kaufbedingungen/Widerruf); decide on VAT handling (Kleinunternehmer or OSS)
+- [ ] [task 17] Run npm run build, npm test and npm run design-check; the Growth edits to Base.astro and index.astro were not built in this session
+- [ ] [task 18] Verify the domain in Google Search Console and Bing Webmaster Tools and submit sitemap-index.xml (Bing also gives IndexNow)
+- [ ] [task 19] Create a 1200x630 PNG for og:image and add it to Base.astro if wanted
+- [ ] [task 20] Set SITE_URL to the production domain and PUBLIC_CF_BEACON_TOKEN for cookie-free Cloudflare Web Analytics
+- [ ] [task 21] Have a lawyer review the legal pages (Impressum, Datenschutz, Kaufbedingungen/Widerruf)
+- [ ] [task 22] After the real Word+Zotero round trip passes, decide on outreach to university libraries and post in the Zotero forum with authorship disclosed
 
 ## Recommendation
 
@@ -78,3 +84,4 @@ one-off paid pass (freemium: free scan, test copy and reference export; paid ful
 - 2026-11-08 20:53 · planned · scaffold and plan written
 - 2026-11-08 21:03 · building · build started
 - 2026-11-08 21:25 · seo · all planned tasks done
+- 2026-11-08 21:31 · qa · seo and conversion foundations written
