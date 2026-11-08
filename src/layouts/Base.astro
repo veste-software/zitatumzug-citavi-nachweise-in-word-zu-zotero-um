@@ -7,8 +7,10 @@ interface Props {
   description: string;
   /** set false for pages that must not be indexed (404) */
   index?: boolean;
+  /** schema.org objects that are true for this page (rendered as JSON-LD) */
+  jsonLd?: Record<string, unknown>[];
 }
-const { title, description, index = true } = Astro.props;
+const { title, description, index = true, jsonLd = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
@@ -21,6 +23,18 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {!index && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Zitatumzug" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {jsonLd.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...obj })} />
+    ))}
     <link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
     <meta name="theme-color" content="#c8a97e" />
     {beaconToken && (

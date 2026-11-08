@@ -3,10 +3,32 @@ import Base from '../layouts/Base.astro';
 import Tag from '../components/Tag.astro';
 import Converter from '../components/Converter';
 import { href } from '../lib/url';
+const faq = [
+  ['Wird meine Arbeit hochgeladen?', 'Nein. Scan und Umwandlung laufen im Browser. Die Datei verlässt Ihren Rechner nicht.'],
+  ['Brauche ich noch eine Citavi-Lizenz?', 'Nein. Die Angaben zu den Quellen stehen in der Word-Datei selbst.'],
+  ['Was ist der Umzugspass?', '9 € einmalig, 30 Tage gültig, kein Abonnement. In dieser Zeit wandeln Sie beliebig viele Dateien um.'],
+];
+const jsonLd = [
+  {
+    '@type': 'WebApplication',
+    name: 'Zitatumzug',
+    url: new URL(Astro.url.pathname, Astro.site).href,
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Any (Browser)',
+    inLanguage: 'de',
+    description: 'Wandelt Citavi-Nachweise in einer Word-Datei in Zotero-Felder um, vollständig im Browser.',
+    offers: { '@type': 'Offer', price: '9.00', priceCurrency: 'EUR', description: 'Umzugspass, 30 Tage; Scan und Testkopie gratis' },
+  },
+  {
+    '@type': 'FAQPage',
+    mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+  },
+];
 ---
 <Base
   title="Citavi-Nachweise in Word zu Zotero umwandeln – Zitatumzug"
   description="Wandelt die Citavi-Nachweise in Ihrem Word-Dokument in Zotero-Felder um – im Browser, ohne Upload und ohne Citavi-Lizenz."
+  jsonLd={jsonLd}
 >
   <div class="main-col">
     <h1>Citavi-Nachweise in Word zu Zotero umwandeln</h1>
