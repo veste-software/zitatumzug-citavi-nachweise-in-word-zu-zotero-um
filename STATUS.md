@@ -1,6 +1,6 @@
 # Zitatumzug: Citavi-Nachweise in Word zu Zotero umwandeln
 
-**Stage:** killed · **Platform:** web · **Score:** 3.6/5 · **Spend:** $3.06
+**Stage:** planned · **Platform:** web · **Score:** 3.6/5 · **Spend:** $4.58
 
 For students and researchers in Germany, Austria and Switzerland whose university is ending its Citavi licence. Upload a Word file and the browser turns its Citavi citations into live Zotero citations, entirely on the user's device. Nobody has to re-insert hundreds of citations by hand, and it still works after the licence has expired.
 
@@ -16,6 +16,14 @@ For students and researchers in Germany, Austria and Switzerland whose universit
 - [ ] [task 6] Have a lawyer review the legal pages (Impressum, Datenschutz, Kaufbedingungen/Widerrufsbelehrung for digital content) and decide on VAT (Kleinunternehmer or OSS)
 - [ ] [task 7] Set up Google Search Console and Bing Webmaster Tools and submit the sitemap
 - [ ] [task 8] Optionally, once the round trip passes, tell university library contacts that the converter exists
+- [ ] [task 9] Put at least 3 real Citavi 6/7 Word documents (author-year with bibliography, footnote style with page numbers and Vgl., numeric) into fixtures/real/ by 2026-11-14
+- [ ] [task 10] Before going live: open 3+ converted outputs in Word with Zotero 7, set a style, click Refresh, and confirm citations, page numbers, footnotes and bibliography
+- [ ] [task 11] In a browser console on the deployed site, confirm that fetch('https://api.zotero.org/keys/<your key>') succeeds (CORS); only then set PUBLIC_ENABLE_LINKING=true
+- [ ] [task 12] Register the domain (e.g. zitatumzug.de), check the name 'Zitatumzug' at DPMA/EUIPO, and connect Cloudflare Pages
+- [ ] [task 13] Create a Stripe account and a 9 EUR price; set STRIPE_SECRET_KEY (test key), STRIPE_PRICE_ID and SITE_URL in Cloudflare Pages
+- [ ] [task 14] Generate an Ed25519 key pair with scripts/gen-keys.mjs once the Builder adds it; set UNLOCK_SIGNING_KEY and PUBLIC_UNLOCK_VERIFY_KEY
+- [ ] [task 15] Create a Cloudflare Web Analytics site and set PUBLIC_CF_BEACON_TOKEN; bind an Analytics Engine dataset or KV for the event counter
+- [ ] [task 16] Fill in the operator data in Impressum and have a lawyer review the legal pages (Impressum, Datenschutz, Kaufbedingungen/Widerruf); decide on VAT handling (Kleinunternehmer or OSS)
 
 ## Recommendation
 
@@ -66,3 +74,5 @@ one-off paid pass (freemium: free scan, test copy and reference export; paid ful
 - 2026-11-08 10:23 · scouted · found by scout
 - 2026-11-08 10:33 · specced · spec written
 - 2026-11-08 10:38 · killed · declined by the review: overall index 2.65 is below 3.6
+- 2026-11-08 20:47 · specced · built as a one-day prototype although the review panel declined it (declined by the review: overall index 2.65 is below 3.6. weakest: potential 2. skeptic: The conversion has not been tested on real Citavi files or in real Zotero. The spec relies on synthetic fixture…); the studio had nothing else to build, and the prototype is how the owner judges it
+- 2026-11-08 20:53 · planned · scaffold and plan written
