@@ -1,6 +1,6 @@
 # Zitatumzug: Citavi-Nachweise in Word zu Zotero umwandeln
 
-**Stage:** specced · **Platform:** web · **Score:** 3.6/5 · **Spend:** $2.11
+**Stage:** killed · **Platform:** web · **Score:** 3.6/5 · **Spend:** $3.06
 
 For students and researchers in Germany, Austria and Switzerland whose university is ending its Citavi licence. Upload a Word file and the browser turns its Citavi citations into live Zotero citations, entirely on the user's device. Nobody has to re-insert hundreds of citations by hand, and it still works after the licence has expired.
 
@@ -56,7 +56,13 @@ one-off paid pass (freemium: free scan, test copy and reference export; paid ful
 - 3 or more of the first 10 real Citavi documents fail the Word+Zotero round trip and 2 Builder sessions cannot fix it: do not go live
 - Zotero ships a built-in Citavi citation converter: make the tool free and stop development
 
+## Links
+
+- Repo: https://github.com/veste-software/zitatumzug-citavi-nachweise-in-word-zu-zotero-um
+- Preview (GitHub Pages, builds from main): https://veste-software.github.io/zitatumzug-citavi-nachweise-in-word-zu-zotero-um/
+
 ## History
 
 - 2026-11-08 10:23 · scouted · found by scout
 - 2026-11-08 10:33 · specced · spec written
+- 2026-11-08 10:38 · killed · declined by the review: overall index 2.65 is below 3.6
