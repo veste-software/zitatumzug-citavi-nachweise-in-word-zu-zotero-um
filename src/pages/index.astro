@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Tag from '../components/Tag.astro';
+import Converter from '../components/Converter';
 ---
 <Base
   title="Citavi-Nachweise in Word zu Zotero umwandeln – Zitatumzug"
@@ -13,10 +14,7 @@ import Tag from '../components/Tag.astro';
       liest sie aus und schreibt Zotero-Felder – mit Seitenzahlen, Präfixen und Fußnoten.
     </p>
     <p><strong>Ihre Datei wird nur in Ihrem Browser verarbeitet und nirgendwohin hochgeladen.</strong></p>
-    <div class="notice" role="status">
-      <span class="label">In Arbeit</span>
-      Das Umwandlungswerkzeug wird gerade gebaut. Diese Seite zeigt den Stand der Vorschau.
-    </div>
+    <Converter client:load />
   </div>
   <aside class="margin-col" aria-label="Preis">
     <Tag label="Umzugspass" big="9 €" detail="einmalig, 30 Tage, inkl. MwSt." variant="manila">

@@ -1,0 +1,104 @@
+{
+  "author-year.docx": {
+    "body": 6,
+    "footnotes": 0,
+    "endnotes": 0,
+    "total": 6,
+    "readable": 6,
+    "unreadable": 0,
+    "uniqueReferences": 3,
+    "withLocator": 2,
+    "bibliography": true,
+    "otherFields": {
+      "zotero": 0,
+      "endnote": 0,
+      "word": 0
+    },
+    "textPlaceholders": 0
+  },
+  "footnotes.docx": {
+    "body": 0,
+    "footnotes": 5,
+    "endnotes": 0,
+    "total": 5,
+    "readable": 5,
+    "unreadable": 0,
+    "uniqueReferences": 5,
+    "withLocator": 3,
+    "bibliography": false,
+    "otherFields": {
+      "zotero": 0,
+      "endnote": 0,
+      "word": 0
+    },
+    "textPlaceholders": 0
+  },
+  "numeric.docx": {
+    "body": 4,
+    "footnotes": 0,
+    "endnotes": 0,
+    "total": 4,
+    "readable": 4,
+    "unreadable": 0,
+    "uniqueReferences": 3,
+    "withLocator": 1,
+    "bibliography": true,
+    "otherFields": {
+      "zotero": 0,
+      "endnote": 0,
+      "word": 0
+    },
+    "textPlaceholders": 0
+  },
+  "edge.docx": {
+    "body": 6,
+    "footnotes": 0,
+    "endnotes": 1,
+    "total": 7,
+    "readable": 6,
+    "unreadable": 1,
+    "uniqueReferences": 5,
+    "withLocator": 4,
+    "bibliography": true,
+    "otherFields": {
+      "zotero": 1,
+      "endnote": 0,
+      "word": 0
+    },
+    "textPlaceholders": 1
+  },
+  "no-citavi.docx": {
+    "body": 0,
+    "footnotes": 0,
+    "endnotes": 0,
+    "total": 0,
+    "readable": 0,
+    "unreadable": 0,
+    "uniqueReferences": 0,
+    "withLocator": 0,
+    "bibliography": false,
+    "otherFields": {
+      "zotero": 0,
+      "endnote": 0,
+      "word": 0
+    },
+    "textPlaceholders": 0
+  },
+  "large.docx": {
+    "body": 500,
+    "footnotes": 0,
+    "endnotes": 0,
+    "total": 500,
+    "readable": 500,
+    "unreadable": 0,
+    "uniqueReferences": 6,
+    "withLocator": 500,
+    "bibliography": true,
+    "otherFields": {
+      "zotero": 0,
+      "endnote": 0,
+      "word": 0
+    },
+    "textPlaceholders": 0
+  }
+}

@@ -301,6 +301,50 @@ kbd {
   border-right: 1px solid var(--stamp-red);
 }
 
+.ledger-wrap {
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+}
+.ledger caption {
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-bottom: var(--space-2);
+}
+.ledger tbody th {
+  text-align: left;
+  font-family: var(--font-text);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-size: var(--step-0);
+  border-bottom: var(--hairline);
+}
+
+/* ---- drop zone: a cut-here line, a real label around a real file input ---- */
+.dropzone {
+  display: block;
+  border: 2px dashed var(--ink);
+  padding: var(--space-5) var(--space-4);
+  cursor: pointer;
+  margin: var(--space-4) 0;
+}
+.dropzone .label {
+  display: block;
+  font-size: var(--step-1);
+}
+.dropzone input {
+  display: block;
+  margin-top: var(--space-3);
+  font: inherit;
+}
+.actions {
+  margin: var(--space-4) 0;
+}
+
 /* ---- signature: the hang tag and the stamp ---- */
 .tag {
   position: relative;
