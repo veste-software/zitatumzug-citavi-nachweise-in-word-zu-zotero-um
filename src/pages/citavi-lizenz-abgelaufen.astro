@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import Converter from '../components/Converter';
+import { href } from '../lib/url';
+---
+<Base
+  title="Citavi-Lizenz abgelaufen: Was mit Ihrem Word-Dokument geht"
+  description="Citavi-Campuslizenz endet? Die Nachweise in Ihrer Word-Datei bleiben lesbar. Optionen im Vergleich, Fristen einzelner Hochschulen und ein kostenloser Scan."
+>
+  <div class="main-col">
+    <h1>Citavi-Lizenz abgelaufen – was mit dem Word-Dokument geht</h1>
+    <p>
+      Wenn eine Campuslizenz endet, fürchten viele um ihre Abschlussarbeit. Die gute Nachricht: Die Word-Datei
+      selbst bleibt Ihre Datei. Jeder Citavi-Nachweis darin enthält die Angaben zur Quelle, auch ohne Lizenz.
+    </p>
+    <h2>Was weiterhin funktioniert</h2>
+    <ul>
+      <li>Das Dokument lässt sich in Word öffnen und lesen, die Nachweise stehen als Text darin.</li>
+      <li>Die Angaben zu den Quellen stecken in den Citavi-Feldern der Datei. Zitatumzug liest sie ohne Citavi aus.</li>
+      <li>Ob Citavi-Felder im Dokument nach Ablauf noch bearbeitet werden können, hängt von Ihrer Installation ab. Verlassen Sie sich nicht darauf.</li>
+    </ul>
+
+    <h2>Ihre Möglichkeiten im Vergleich</h2>
+    <div class="ledger-wrap">
+      <table class="ledger">
+        <caption>Optionen nach dem Lizenzende</caption>
+        <thead><tr><th scope="col">Option</th><th scope="col">Vorteil</th><th scope="col">Nachteil</th></tr></thead>
+        <tbody>
+          <tr><td>Nachweise von Hand neu setzen</td><td>Der Weg, den Bibliotheken empfehlen.</td><td>Bei einer Arbeit oft Stunden; Seitenzahlen müssen neu getippt werden; in nummerierten Stilen lässt sich Altes und Neues nicht mischen.</td></tr>
+          <tr><td>Citavi: als statischen Text speichern</td><td>Der Text bleibt erhalten.</td><td>Die Felder sind weg. Literaturverzeichnis und Nummern aktualisieren sich nicht mehr.</td></tr>
+          <tr><td>Private Citavi-Lizenz</td><td>Sie bleiben im gewohnten Programm.</td><td>Kostet Geld; Sie bleiben an Citavi gebunden.</td></tr>
+          <tr><td>Citavi Free</td><td>Gratis.</td><td>Große Projekte werden nur lesbar; führt Sie nicht zu Zotero.</td></tr>
+          <tr><td>Zitatumzug</td><td>Aus Citavi-Nachweisen werden Zotero-Felder, mit Seitenzahlen, Präfixen und Fußnoten. Scan gratis, 9 € für die volle Umwandlung.</td><td>Nur .docx; Citavi-Stil wird nicht übernommen; echte Dokumente können vom erwarteten Aufbau abweichen.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Jetzt prüfen: Wie viele Nachweise stecken in Ihrer Datei?</h2>
+    <p><strong>Ihre Datei wird nur in Ihrem Browser verarbeitet und nirgendwohin hochgeladen.</strong></p>
+    <Converter client:load />
+
+    <h2>Fristen einzelner Hochschulen</h2>
+    <p>
+      Nur Einträge, deren Quelle wir geöffnet haben. Fehlt Ihre Hochschule, fragen Sie Ihre Bibliothek.
+    </p>
+    <div class="ledger-wrap">
+      <table class="ledger">
+        <caption>Citavi-Lizenzende an Hochschulen. Stand: 08.11.2026</caption>
+        <thead><tr><th scope="col">Hochschule</th><th scope="col">Angabe</th><th scope="col">Quelle</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Universität Münster</td>
+            <td>Campuslizenz endet am 31.12.2026 und wird nicht verlängert.</td>
+            <td><a href="https://www.uni-muenster.de/ZBSoz/bibliothek/aktuell/nachricht/3269" rel="noopener">Nachricht der Bibliothek</a></td>
+          </tr>
+          <tr>
+            <td>SUB Göttingen</td>
+            <td>Lizenz endet am 30.11.2026. Die Bibliothek schreibt, mit Citavi erzeugte Nachweise im Text ließen sich derzeit nicht automatisch mit Zotero verknüpfen.</td>
+            <td><a href="https://sub.uni-goettingen.de/en/studying/courses/switching-from-citavi-to-zotero" rel="noopener">Wechselhinweise der SUB</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Wie die Felder aufgebaut sind, steht auf <a href={href('/citavi-felder-zotero/')}>Citavi-Felder erklärt</a>.
+      Nur die Quellenliste brauchen Sie? Dann geht es auch ohne Bezahlung:
+      <a href={href('/literaturliste-aus-word-retten/')}>Literaturliste aus Word retten</a>.
+    </p>
+  </div>
+</Base>

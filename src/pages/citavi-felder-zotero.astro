@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+---
+<Base
+  title="Citavi-Felder in Word und was Zotero daraus macht"
+  description="Wie ein Citavi-Nachweis in der Word-Datei aufgebaut ist, warum Zotero ihn nicht liest und wie die Angaben in Zotero-Felder (CSL) übertragen werden."
+>
+  <div class="main-col">
+    <h1>Citavi-Felder in Word: Aufbau und Umwandlung nach Zotero</h1>
+    <p>
+      Citavi und Zotero nutzen beide Felder in Word, aber mit unterschiedlichem Inhalt. Deshalb erkennt Zotero Citavi-Nachweise
+      nicht. Diese Seite zeigt, was in einem Citavi-Nachweis steckt und wohin die Angaben wandern.
+    </p>
+
+    <h2>Was ein Citavi-Nachweis ist</h2>
+    <p>
+      Ein Nachweis ist ein Inhaltssteuerelement (<code>w:sdt</code>) mit einem Tag, das mit <code>CitaviPlaceholder#</code>
+      beginnt. In dessen Inhalt liegt ein langer Text, der Base64-kodiert ist. Entschlüsselt ist es JSON mit den Einträgen
+      und den vollständigen Angaben zur Quelle. Der Auszug ist gekürzt und erfunden.
+    </p>
+    <pre><code>&lt;w:sdt&gt;
+  &lt;w:sdtPr&gt;&lt;w:tag w:val="CitaviPlaceholder#0a1b…"/&gt;&lt;/w:sdtPr&gt;
+  &lt;w:sdtContent&gt;
+    &lt;w:r&gt;&lt;w:instrText&gt;eyJFbnRyaWVzIjpbey4uLn1dfQ==&lt;/w:instrText&gt;&lt;/w:r&gt;
+    &lt;w:r&gt;&lt;w:t&gt;(Muster 2019, S. 12)&lt;/w:t&gt;&lt;/w:r&gt;
+  &lt;/w:sdtContent&gt;
+&lt;/w:sdt&gt;</code></pre>
+    <p>
+      Zotero erwartet dagegen ein Feld mit <code>ADDIN ZOTERO_ITEM CSL_CITATION</code> und einem JSON im CSL-Format. Das
+      Zotero-Add-in kann Citavi-Felder nicht lesen, deshalb raten Bibliotheken meist zum Neusetzen der Nachweise.
+    </p>
+
+    <h2>Zuordnung der Felder</h2>
+    <div class="ledger-wrap">
+      <table class="ledger">
+        <caption>Citavi-Angabe und CSL-Feld</caption>
+        <thead><tr><th scope="col">Citavi</th><th scope="col">CSL / Zotero</th></tr></thead>
+        <tbody>
+          <tr><td>Authors, Editors</td><td>author, editor (family, given)</td></tr>
+          <tr><td>Organizations</td><td>author mit literal</td></tr>
+          <tr><td>Title, Subtitle</td><td>title</td></tr>
+          <tr><td>Year, Date</td><td>issued</td></tr>
+          <tr><td>Periodical, Volume, Number</td><td>container-title, volume, issue</td></tr>
+          <tr><td>PageRange der Quelle</td><td>page</td></tr>
+          <tr><td>Publishers, PlaceOfPublication</td><td>publisher, publisher-place</td></tr>
+          <tr><td>Doi, Isbn, Issn, OnlineAddress</td><td>DOI, ISBN, ISSN, URL</td></tr>
+          <tr><td>ParentReference (Sammelband)</td><td>container-title, editor</td></tr>
+          <tr><td>PageRange des Nachweises</td><td>locator, label „page“</td></tr>
+          <tr><td>Prefix, Suffix</td><td>prefix, suffix</td></tr>
+          <tr><td>ReferenceType</td><td>type (book, article-journal, chapter, thesis, webpage …)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Was nicht mitkommt</h2>
+    <ul>
+      <li>Der Citavi-Zitierstil. Den Stil stellen Sie in Zotero ein.</li>
+      <li>Wissenselemente und Notizen aus Ihrem Citavi-Projekt. Sie stehen nicht im Dokument.</li>
+      <li>Ein automatisches „Vgl.“ aus der Citavi-Einstellung. Es kann über das Standard-Präfix gesetzt werden.</li>
+    </ul>
+    <p>
+      Zum Ausprobieren: <a href={href('/')}>Datei scannen</a>. Die Datei bleibt dabei in Ihrem Browser.
+    </p>
+  </div>
+</Base>

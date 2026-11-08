@@ -1,6 +1,11 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import type { ScanResult } from '../core/scan';
 import { domXml } from '../lib/domXml';
+import { gateFor, loadPass, savePass, verifyToken, type Gate } from '../lib/token';
+import { href } from '../lib/url';
+import { track } from '../lib/track';
+
+const VERIFY_KEY: string | undefined = import.meta.env.PUBLIC_UNLOCK_VERIFY_KEY || undefined;
 
 type Props = { mode?: 'convert' | 'export' };
 
@@ -49,6 +54,83 @@ export default function Converter({ mode = 'convert' }: Props) {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [prefix, setPrefix] = useState('');
+  const [pass, setPass] = useState<string | null>(null);
+  const [gate, setGate] = useState<Gate>('paywall');
+  const [consent, setConsent] = useState(false);
+  const [payNote, setPayNote] = useState('');
+  const [pasted, setPasted] = useState('');
+
+  async function acceptPass(token: string): Promise<boolean> {
+    const g = await gateFor(token, VERIFY_KEY);
+    if (g !== 'full') return false;
+    savePass(token.trim());
+    setPass(token.trim());
+    setGate('full');
+    return true;
+  }
+
+  useEffect(() => {
+    if (mode !== 'convert') return;
+    (async () => {
+      const sid = new URLSearchParams(location.search).get('session_id');
+      if (sid) {
+        try {
+          const r = await fetch(href('/api/verify') + '?session_id=' + encodeURIComponent(sid));
+          const j = r.ok ? await r.json() : null;
+          if (j?.token && (await acceptPass(j.token))) {
+            setPayNote('Zahlung erhalten. Ihr Umzugspass ist aktiv. Laden Sie Ihre Datei, um alles umzuwandeln.');
+            history.replaceState(null, '', location.pathname);
+            return;
+          }
+          setPayNote(
+            r.status === 402
+              ? 'Die Zahlung ist noch nicht bestätigt. Laden Sie diese Seite in einer Minute neu.'
+              : 'Bezahlung ist gerade nicht verfügbar. Bitte versuchen Sie es später erneut.',
+          );
+        } catch {
+          setPayNote('Bezahlung ist gerade nicht verfügbar. Bitte versuchen Sie es später erneut.');
+        }
+        return;
+      }
+      const stored = loadPass();
+      if (stored) await acceptPass(stored);
+    })();
+  }, []);
+
+  async function startCheckout() {
+    setPayNote('');
+    track('checkout_start');
+    try {
+      const r = await fetch(href('/api/checkout'), { method: 'POST' });
+      const j = r.ok ? await r.json() : null;
+      if (j?.url) location.href = j.url;
+      else setPayNote('Bezahlung ist gerade nicht verfügbar.');
+    } catch {
+      setPayNote('Bezahlung ist gerade nicht verfügbar.');
+    }
+  }
+
+  async function usePasted() {
+    if (!(await acceptPass(pasted))) setPayNote('Dieser Pass ist ungültig oder abgelaufen.');
+    else setPayNote('Pass übernommen.');
+  }
+
+  async function fullCopy() {
+    if (!state || !pass) return;
+    if (!VERIFY_KEY || !(await verifyToken(pass, VERIFY_KEY))) {
+      setGate('paywall');
+      return setPayNote('Ihr Pass ist abgelaufen oder ungültig.');
+    }
+    const { convertDocx } = await import('../core/convert');
+    const r = convertDocx(state.bytes, domXml, { mode: 'full', unlock: true, standardPrefix: prefix.trim() || undefined });
+    if (!r.ok) return setError(ERRORS[r.error] ?? 'Umwandlung nicht möglich.');
+    track('full_download');
+    download(
+      state.name.replace(/\.docx$/i, '') + '_zotero.docx',
+      r.bytes,
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    );
+  }
 
   async function onFile(e: Event) {
     const input = e.target as HTMLInputElement;
@@ -71,6 +153,7 @@ export default function Converter({ mode = 'convert' }: Props) {
         );
       } else {
         setState({ name: file.name, bytes, scan });
+        track('scan_done');
       }
     } catch {
       setError('Die Datei konnte nicht gelesen werden. Ist sie beschädigt oder mit Passwort geschützt?');
@@ -84,6 +167,7 @@ export default function Converter({ mode = 'convert' }: Props) {
     const { convertDocx } = await import('../core/convert');
     const r = convertDocx(state.bytes, domXml, { mode: 'test', standardPrefix: prefix.trim() || undefined });
     if (!r.ok) return setError(ERRORS[r.error] ?? 'Umwandlung nicht möglich.');
+    track('test_download');
     download(
       state.name.replace(/\.docx$/i, '') + '_zotero-test.docx',
       r.bytes,
@@ -113,6 +197,11 @@ export default function Converter({ mode = 'convert' }: Props) {
       </label>
 
       <div aria-live="polite">
+        {payNote && (
+          <div class="notice">
+            <span class="label">Hinweis</span> {payNote}
+          </div>
+        )}
         {busy && <p>Datei wird gelesen …</p>}
         {error && (
           <div class="notice notice--error" role="alert">
@@ -169,9 +258,48 @@ export default function Converter({ mode = 'convert' }: Props) {
                 Testkopie herunterladen ({Math.min(10, c.readable)} Nachweise)
               </button>
               <div class="notice">
-                <span class="label">Hinweis</span> Die Testkopie wandelt die ersten {Math.min(10, c.readable)} Nachweise um. Die
-                vollständige Umwandlung (Umzugspass) ist noch nicht freigeschaltet. Arbeiten Sie immer an einer Kopie und
-                behalten Sie Ihr Original.
+                <span class="label">Hinweis</span> Die Testkopie wandelt die ersten {Math.min(10, c.readable)} Nachweise um.
+                Arbeiten Sie immer an einer Kopie und behalten Sie Ihr Original.
+              </div>
+              <div class="paywall">
+                {gate === 'full' ? (
+                  <>
+                    <p class="label">Umzugspass aktiv</p>
+                    <button type="button" class="button button--primary" onClick={fullCopy} disabled={c.readable === 0}>
+                      Alle {c.readable} Nachweise umwandeln
+                    </button>
+                    {pass && (
+                      <label class="field">
+                        <span class="label">Ihr Pass (zum Kopieren, für andere Geräte)</span>
+                        <input type="text" readOnly value={pass} onFocus={(e) => (e.target as HTMLInputElement).select()} />
+                      </label>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <p class="label">Umzugspass – 9 € einmalig, 30 Tage</p>
+                    <p>
+                      Gratis: Scan, Testkopie mit 10 Nachweisen, Export als RIS und CSL-JSON. Im Pass enthalten: alle{' '}
+                      {c.readable} Nachweise inklusive Fußnoten, Endnoten und Literaturverzeichnis-Feld, beliebig viele
+                      Dateien in 30 Tagen. Kein Abonnement.
+                    </p>
+                    <label class="check">
+                      <input type="checkbox" checked={consent} onChange={(e) => setConsent((e.target as HTMLInputElement).checked)} />{' '}
+                      <span>
+                        Ich stimme zu, dass die Lieferung sofort beginnt, und weiß, dass ich damit mein Widerrufsrecht
+                        verliere (§ 356 Abs. 5 BGB). Es gelten die <a href={href('/kaufbedingungen/')}>Kaufbedingungen</a>.
+                      </span>
+                    </label>
+                    <button type="button" class="button button--primary" onClick={startCheckout} disabled={!consent || c.readable === 0}>
+                      Alle {c.readable} Nachweise umwandeln – 9 € einmalig
+                    </button>
+                    <label class="field">
+                      <span class="label">Schon einen Pass? Hier einfügen</span>
+                      <input type="text" value={pasted} onInput={(e) => setPasted((e.target as HTMLInputElement).value)} />
+                    </label>
+                    <button type="button" class="button" onClick={usePasted} disabled={!pasted.trim()}>Pass übernehmen</button>
+                  </>
+                )}
               </div>
             </div>
           )}

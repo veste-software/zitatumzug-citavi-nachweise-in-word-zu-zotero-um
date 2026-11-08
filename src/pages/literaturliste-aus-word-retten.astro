@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Converter from '../components/Converter';
+---
+<Base
+  title="Literaturliste aus Word-Dokument mit Citavi retten – RIS-Export"
+  description="Exportieren Sie die Quellen aus den Citavi-Nachweisen Ihrer Word-Datei als RIS oder CSL-JSON, kostenlos und ohne Citavi-Lizenz, direkt im Browser."
+>
+  <div class="main-col">
+    <h1>Literaturliste aus einem Word-Dokument mit Citavi-Nachweisen retten</h1>
+    <p>
+      Ihre Citavi-Lizenz ist weg, Ihr Projekt nicht mehr erreichbar? Die Quellen stehen trotzdem in Ihrer Word-Datei.
+      Hier holen Sie sie als RIS- oder CSL-JSON-Datei heraus, kostenlos.
+    </p>
+    <p><strong>Ihre Datei wird nur in Ihrem Browser verarbeitet und nirgendwohin hochgeladen.</strong></p>
+    <Converter client:load mode="export" />
+
+    <h2>In Zotero importieren</h2>
+    <ol>
+      <li>Zotero öffnen, Menü „Datei“, „Importieren …“.</li>
+      <li>„Eine Datei“ wählen und die heruntergeladene RIS-Datei (oder CSL-JSON) auswählen.</li>
+      <li>Weiter bis zum Ende. Zotero legt die Quellen in einer neuen Sammlung an.</li>
+      <li>Prüfen Sie Titel, Jahr und Personen. Aus Seitenzahlen in Nachweisen entstehen keine Bibliothekseinträge, sie gehören zum Zitat.</li>
+    </ol>
+    <p>
+      Die Nachweise im Text selbst bekommen Sie mit der Umwandlung auf der Startseite, als Zotero-Felder.
+    </p>
+  </div>
+</Base>

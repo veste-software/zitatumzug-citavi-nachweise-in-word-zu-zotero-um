@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Tag from '../components/Tag.astro';
 import Converter from '../components/Converter';
+import { href } from '../lib/url';
 ---
 <Base
   title="Citavi-Nachweise in Word zu Zotero umwandeln – Zitatumzug"
@@ -15,6 +16,73 @@ import Converter from '../components/Converter';
     </p>
     <p><strong>Ihre Datei wird nur in Ihrem Browser verarbeitet und nirgendwohin hochgeladen.</strong></p>
     <Converter client:load />
+
+    <h2>So funktioniert’s</h2>
+    <p>
+      Citavi legt jeden Nachweis als Inhaltssteuerelement in die Word-Datei und speichert darin die Angaben zur
+      Quelle. Dafür braucht Zitatumzug weder Citavi noch Ihr Projekt noch eine gültige Lizenz. Ein Schritt nach dem
+      anderen:
+    </p>
+    <div class="ledger-wrap">
+      <table class="ledger">
+        <caption>Vom Citavi-Dokument zum Zotero-Dokument</caption>
+        <thead><tr><th scope="col">Schritt</th><th scope="col">Was geschieht</th><th scope="col">Kosten</th></tr></thead>
+        <tbody>
+          <tr><td>Scan</td><td>Die Datei wird im Browser geöffnet und die Nachweise werden gezählt.</td><td>gratis</td></tr>
+          <tr><td>Testkopie</td><td>Die ersten 10 Nachweise werden umgewandelt. So prüfen Sie das Ergebnis in Word und Zotero.</td><td>gratis</td></tr>
+          <tr><td>Literaturliste</td><td>Alle Quellen als RIS oder CSL-JSON, zum Import in Zotero.</td><td>gratis</td></tr>
+          <tr><td>Volle Umwandlung</td><td>Alle Nachweise in Text, Fußnoten und Endnoten, dazu ein Zotero-Literaturverzeichnis-Feld.</td><td>9 € einmalig (Umzugspass, 30 Tage)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Nach der Umwandlung: Word und Zotero 7</h2>
+    <p>Öffnen Sie die umgewandelte Datei in Word, mit installiertem Zotero-Add-in und laufendem Zotero.</p>
+    <ol>
+      <li>Reiter „Zotero“ öffnen und „Dokumenteinstellungen“ wählen.</li>
+      <li>Den Zitierstil wählen, den Ihr Fach verlangt. Der Citavi-Stil wird nicht übernommen.</li>
+      <li>Auf „Aktualisieren“ klicken. Zotero schreibt alle Nachweise und das Literaturverzeichnis neu.</li>
+      <li>Stichproben vergleichen: Seitenzahlen, Präfixe wie „Vgl.“, Fußnoten.</li>
+    </ol>
+    <p>
+      Bei Fußnotenstilen und Autor-Jahr-Stilen funktioniert das ohne Weiteres. Bei nummerierten Stilen prüfen Sie
+      die Nummern nach dem Aktualisieren. Zotero kennt die Quellen zunächst nur aus dem Dokument: Im Zitierdialog
+      erscheinen sie im Abschnitt „Zitiert“, nicht in Ihrer Bibliothek. Wollen Sie sie dort haben, importieren Sie
+      die Literaturliste (RIS) in Zotero. Nutzen Sie dafür auch die Seite
+      <a href={href('/literaturliste-aus-word-retten/')}>Literaturliste aus Word retten</a>.
+    </p>
+
+    <h2>Grenzen</h2>
+    <ul>
+      <li>Nur Word-Dateien im Format .docx. Eine .doc- oder .odt-Datei speichern Sie zuerst als .docx.</li>
+      <li>Nur Nachweise, die mit dem Citavi-Word-Add-in eingefügt wurden. Reine Textplatzhalter wie „{'{Miller 2009 #84}'}“ werden nicht umgewandelt.</li>
+      <li>Nachweise, die der Citavi Assistant (Web) erzeugt hat, sind nicht geprüft. Der Scan zeigt Ihnen, was lesbar ist.</li>
+      <li>Der Citavi-Zitierstil wird nicht übernommen. Den Stil wählen Sie in Zotero.</li>
+      <li>Nicht lesbare Nachweise bleiben unverändert im Dokument und stehen in der Liste nach dem Scan.</li>
+    </ul>
+    <div class="notice">
+      <span class="label">Behalten Sie Ihr Original</span>
+      Arbeiten Sie immer an einer Kopie. Zitatumzug lädt Ihnen eine neue Datei herunter und ändert das Original nicht.
+    </div>
+
+    <h2>Häufige Fragen</h2>
+    <h3>Wird meine Arbeit hochgeladen?</h3>
+    <p>Nein. Scan und Umwandlung laufen im Browser. Die Datei verlässt Ihren Rechner nicht.</p>
+    <h3>Brauche ich noch eine Citavi-Lizenz?</h3>
+    <p>Nein. Die Angaben zu den Quellen stehen in der Word-Datei selbst. Mehr dazu: <a href={href('/citavi-lizenz-abgelaufen/')}>Lizenz abgelaufen?</a></p>
+    <h3>Was ist der Umzugspass?</h3>
+    <p>9 € einmalig, 30 Tage gültig, kein Abonnement. In dieser Zeit wandeln Sie beliebig viele Dateien um.</p>
+    <h3>Wie genau ist das Ergebnis?</h3>
+    <p>
+      Prüfen Sie zuerst die kostenlose Testkopie. Die Felder werden nach dem veröffentlichten Aufbau der Citavi-Daten
+      gelesen; echte Dokumente können abweichen. Melden Sie Auffälligkeiten gern.
+    </p>
+    <h3>Ich betreue eine Bibliothek oder Beratungsstelle.</h3>
+    <p>
+      Schreiben Sie an die E-Mail-Adresse aus dem <a href={href('/impressum/')}>Impressum</a>, wenn Sie Zitatumzug
+      für Ihre Nutzerinnen und Nutzer empfehlen oder eine Campus-Lösung besprechen möchten.
+    </p>
+    <p class="small">Zitatumzug ist ein unabhängiges Angebot und nicht mit Citavi, Lumivero, Zotero oder Microsoft verbunden.</p>
   </div>
   <aside class="margin-col" aria-label="Preis">
     <Tag label="Umzugspass" big="9 €" detail="einmalig, 30 Tage, inkl. MwSt." variant="manila">
